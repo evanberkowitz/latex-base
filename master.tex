@@ -1,0 +1,41 @@
+\documentclass[aps,superscriptaddress,tightenlines,nofootinbib,floatfix,longbibliography]{revtex4-1}
+\usepackage[left=18mm,right=19mm,top=23mm,bottom=16mm]{geometry}
+
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage{comment}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{slashed}
+\usepackage{hyperref}
+
+\include{git_information}
+
+\input{macros} % input rather than include so we don't create macros.aux
+
+%%%%
+%%%%    Document preparation
+%%%%
+
+
+\begin{document}
+
+\title{Example \LaTeX + \texttt{git} }
+
+\author{Evan Berkowitz}
+
+\date{\today}
+
+\begin{abstract}
+Here's a bare-bones example where I set up a git repo with all the \LaTeX-related things that I like.
+\vfill % And below is where you see the state of the repo that produced this pdf.
+\gitInfo
+\end{abstract}
+
+\maketitle
+
+\input{section/introduction}
+\input{section/hooks}
+\input{section/make}
+
+\end{document}
