@@ -1,3 +1,8 @@
+git_information.tex
+*Notes.bib
+master.pdf
+.git*hook.log
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
