@@ -3,9 +3,9 @@
 STASH_NAME="pre-commit-$(date +%s)"
 LOG=".git-pre-commit-hook.log"
 N=10
-git stash push --keep-index --include-untracked $STASH_NAME
+git stash push --keep-index --include-untracked --message $STASH_NAME
 
-echo -n "Making based on latest commit..."
+echo "Making based on latest commit..."
 
 pushd "$(git rev-parse --show-toplevel)" > /dev/null
 make master.pdf > "$LOG"
