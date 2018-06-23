@@ -7,12 +7,12 @@ SECTIONS = $(shell ls -1 section/ | sed -e 's/^/section\//g')
 
 all: $(MASTER).pdf
 
-master.pdf: $(SECTIONS) macros.tex master.tex
+$(MASTER).pdf: $(SECTIONS) macros.tex $(MASTER).tex
 	make $(GIT_STATUS)
-	$(TEX) master.tex
-	$(BIB) master
-	$(TEX) master.tex
-	$(TEX) master.tex
+	$(TEX) $(MASTER).tex
+	$(BIB) $(MASTER)
+	$(TEX) $(MASTER).tex
+	$(TEX) $(MASTER).tex
 	make clean_temporary_files
 
 .PHONY: $(GIT_STATUS)
@@ -36,4 +36,4 @@ clean: clean_temporary_files
 
 .PHONY: watch
 watch:
-	watchman-make -p '**/*.tex' '*/*.tex' '*.tex' '*.bib' -t master.pdf
+	watchman-make -p '**/*.tex' '*/*.tex' '*.tex' '*.bib' -t $(MASTER).pdf
