@@ -1,1 +1,17 @@
 \section{Makefile}
+
+The provided makefile uses \texttt{pdflatex} and \texttt{bibtex} to compile \texttt{master.pdf}, the base of which is set in the MASTER variable.
+
+The \texttt{\$(MASTER).pdf} target depends on the files in the \texttt{section} directory, \texttt{macros.tex}, and \texttt{\$(MASTER).tex}.
+
+The \texttt{\$(GIT\_STATUS)} phony target uses \texttt{git\_information.sh} to produce the \texttt{git\_information.tex} file explained above.
+
+The \texttt{git-hooks} target symbolically links the git hooks into the repository's \texttt{.git} directory.
+
+The \texttt{clean\_temporary\_files} and \texttt{clean} targets remove a lot of cruft automatically generated during the course of compiling the \LaTeX to PDF.
+
+The \texttt{watch} target uses \texttt{watchman-make}\cite{watchman} to continuously update the PDF as you make changes to the source files.
+This can interfere with the pre-commit git hook.
+It can also get stuck in an infinite loop.
+But if you tend to write decent \LaTeX the first time around, it'll be pretty reliable.
+
