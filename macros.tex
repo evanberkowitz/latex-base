@@ -17,18 +17,42 @@
 %%%%
 
 \newcommand{\goesto}{\ensuremath{\rightarrow}}
+\newcommand{\Integers}{\mathbb{Z}\xspace}
 \newcommand{\one}{\ensuremath{\mathbbm{1}}}
+\newcommand{\order}[1]{\ensuremath{\mathcal{O}\left(#1\right)}\xspace}
+\newcommand{\Rationals}{\mathbb{Q}\xspace}
+\newcommand{\Reals}{\mathbb{R}\xspace}
+\newcommand{\union}{\ensuremath{\cup}}
+
+%%%%
+%%%%    Mathematical Delimiters
+%%%%
+\newcommand{\abs}[1]{\ensuremath{\left| #1 \right|}\xspace}
+\newcommand{\magnitude}{\abs}
+\newcommand{\average}[1]{\ensuremath{\left\langle #1 \right\rangle}\xspace}
+
+% Quantum mechanics bra-ket notation:
+\newcommand{\ket}[1]{\ensuremath{\left|\;#1\;\right\rangle}}
+\newcommand{\bra}[1]{\ensuremath{\left\langle\;#1\;\right|}}
+\newcommand{\bracket}[2]{\ensuremath{\left\langle\;#1\;\middle|\;#2\;\right\rangle}}
+\let\braket\bracket
+
 
 %%%%
 %%%%    Physical Quantities and Constants
 %%%%
 
 
+
+
 %%%%
 %%%%    Software
 %%%%
 
+\newcommand{\bash}{\texttt{bash}\xspace}
 \newcommand{\git}{\texttt{git}\xspace}
+\newcommand{\mpi}{\texttt{MPI}\xspace}
+\newcommand{\python}{\texttt{python}\xspace}
 
 % Put an xspace after \LaTeX:
 \let\builtinLaTeX\LaTeX
