@@ -6,6 +6,10 @@ DRAFT=draft
 MASTER=master
 SECTIONS = $(shell ls -1 section/ | sed -e 's/^/section\//g')
 
+ifndef VERBOSE
+	REDIRECT=1>/dev/null 2>/dev/null
+endif
+
 all: $(MASTER).pdf
 
 $(MASTER).pdf: $(SECTIONS) macros.tex $(MASTER).tex
