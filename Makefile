@@ -2,17 +2,28 @@ TEX=pdflatex -halt-on-error
 BIB=bibtex
 GIT_STATUS=git_information.tex
 
+DRAFT=draft
 MASTER=master
 SECTIONS = $(shell ls -1 section/ | sed -e 's/^/section\//g')
 
 all: $(MASTER).pdf
 
 $(MASTER).pdf: $(SECTIONS) macros.tex $(MASTER).tex
+	@echo $@
+	echo "" > $(GIT_STATUS) $(REDIRECT)
+	$(TEX) $(MASTER).tex $(REDIRECT)
+	$(BIB) master $(REDIRECT)
+	$(TEX) $(MASTER).tex $(REDIRECT)
+	$(TEX) $(MASTER).tex $(REDIRECT)
+	make clean_temporary_files
+
+$(DRAFT).pdf: $(SECTIONS) $(MASTER).tex
+	@echo $@
 	make $(GIT_STATUS)
-	$(TEX) $(MASTER).tex
-	$(BIB) $(MASTER)
-	$(TEX) $(MASTER).tex
-	$(TEX) $(MASTER).tex
+	$(TEX) -jobname=$(DRAFT) $(MASTER).tex $(REDIRECT)
+	$(BIB) $(DRAFT) $(REDIRECT)
+	$(TEX) -jobname=$(DRAFT) $(MASTER).tex $(REDIRECT)
+	$(TEX) -jobname=$(DRAFT) $(MASTER).tex $(REDIRECT)
 	make clean_temporary_files
 
 .PHONY: $(GIT_STATUS)

@@ -9,8 +9,6 @@
 \usepackage{slashed}
 \usepackage{hyperref}
 
-\include{git_information}
-
 \input{macros} % input rather than include so we don't create macros.aux
 
 %%%%
@@ -29,7 +27,7 @@
 \begin{abstract}
 Here's a bare-bones example where I set up a git repo with all the \LaTeX-related things that I like.
 \vfill % And below is where you see the state of the repo that produced this pdf.
-\gitInfo
+\input{git_information}
 \end{abstract}
 
 \maketitle
