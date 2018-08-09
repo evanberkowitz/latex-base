@@ -43,6 +43,7 @@ clean_temporary_files:
 .PHONY: clean
 clean: clean_temporary_files
 	$(RM) $(GIT_STATUS)
+	$(RM) {$(MASTER),$(DRAFT)}Notes.bib
 	$(RM) $(MASTER).pdf
 
 .PHONY: watch
