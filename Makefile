@@ -42,7 +42,7 @@ git-hooks:
 .PHONY: clean_temporary_files
 clean_temporary_files:
 	$(RM) git_information.aux section/*.aux
-	$(RM) $(MASTER).{out,log,aux,synctex.gz,bbl,blg,toc,fls,fdb_latexmk}
+	$(RM) {$(MASTER),$(DRAFT)}.{out,log,aux,synctex.gz,bbl,blg,toc,fls,fdb_latexmk}
 
 .PHONY: clean
 clean: clean_temporary_files
