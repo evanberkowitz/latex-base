@@ -1,6 +1,5 @@
 \documentclass[aps,superscriptaddress,tightenlines,nofootinbib,floatfix,longbibliography]{revtex4-1}
 \usepackage[left=18mm,right=19mm,top=23mm,bottom=16mm]{geometry}
-
 \usepackage{amsmath,amssymb}
 \usepackage{bm}
 \usepackage{comment}
@@ -8,6 +7,21 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{slashed}
 \usepackage{hyperref}
+
+
+%%%
+%%%     Draft margin.
+%%%
+
+\usepackage[
+    angle=90,
+    color=red,
+    opacity=1,
+    scale=2,
+    ]{background}
+\SetBgPosition{current page.west}
+\SetBgVshift{-4.5mm}
+\backgroundsetup{contents={\input{git_information}}}
 
 \input{macros} % input rather than include so we don't create macros.aux
 
