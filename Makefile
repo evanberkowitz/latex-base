@@ -48,7 +48,7 @@ clean_temporary_files:
 clean: clean_temporary_files
 	$(RM) $(GIT_STATUS)
 	$(RM) {$(MASTER),$(DRAFT)}Notes.bib
-	$(RM) $(MASTER).pdf
+	$(RM) {$(MASTER),$(DRAFT)}.pdf
 
 .PHONY: watch
 watch:
