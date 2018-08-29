@@ -19,7 +19,7 @@ $(MASTER).pdf: $(SECTIONS) macros.tex $(MASTER).tex
 	$(BIB) master $(REDIRECT)
 	$(TEX) $(MASTER).tex $(REDIRECT)
 	$(TEX) $(MASTER).tex $(REDIRECT)
-	make clean_temporary_files
+	make tidy
 
 $(DRAFT).pdf: $(SECTIONS) $(MASTER).tex
 	@echo $@
@@ -28,7 +28,7 @@ $(DRAFT).pdf: $(SECTIONS) $(MASTER).tex
 	$(BIB) $(DRAFT) $(REDIRECT)
 	$(TEX) -jobname=$(DRAFT) $(MASTER).tex $(REDIRECT)
 	$(TEX) -jobname=$(DRAFT) $(MASTER).tex $(REDIRECT)
-	make clean_temporary_files
+	make tidy
 
 .PHONY: $(GIT_STATUS)
 
@@ -39,13 +39,13 @@ $(GIT_STATUS):
 git-hooks:
 	for h in hooks/*; do ln -f -s "../../$$h" ".git/$$h"; done
 
-.PHONY: clean_temporary_files
-clean_temporary_files:
+.PHONY: tidy
+tidy:
 	$(RM) git_information.aux section/*.aux
 	$(RM) {$(MASTER),$(DRAFT)}.{out,log,aux,synctex.gz,bbl,blg,toc,fls,fdb_latexmk}
 
 .PHONY: clean
-clean: clean_temporary_files
+clean: tidy
 	$(RM) $(GIT_STATUS)
 	$(RM) {$(MASTER),$(DRAFT)}Notes.bib
 	$(RM) {$(MASTER),$(DRAFT)}.pdf
