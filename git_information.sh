@@ -9,7 +9,9 @@ fi
 
 # Turn red if there are dirty files.
 if [[ ! "${result:0:1}" == "0" ]]; then
-    result="{\color{red}${result}}"
+    result="{\color{Red}${result}}"
+else
+    result="{\color{Green}${result}}"
 fi
 
 echo "${result}"
