@@ -51,5 +51,5 @@ clean: tidy
 	$(RM) {$(MASTER),$(DRAFT)}.pdf
 
 .PHONY: watch
-watch:
+watch: $(DRAFT).pdf
 	watchman-make -p '**/*.tex' '*/*.tex' '*.tex' '*.bib' -t $(DRAFT).pdf
