@@ -16,7 +16,7 @@ $(MASTER).pdf: $(SECTIONS) macros.tex $(MASTER).tex
 	@echo $@
 	echo "" > $(GIT_STATUS) $(REDIRECT)
 	$(TEX) $(MASTER).tex $(REDIRECT)
-	$(BIB) master $(REDIRECT)
+	$(BIB) $(MASTER) $(REDIRECT)
 	$(TEX) $(MASTER).tex $(REDIRECT)
 	$(TEX) $(MASTER).tex $(REDIRECT)
 	make tidy
