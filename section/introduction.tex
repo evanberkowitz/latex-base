@@ -18,4 +18,5 @@ The script \texttt{git\_information.sh} produces \texttt{git\_information.tex} w
 \end{verbatim}
 The one dirty file is the one I'm working on---\texttt{section/introduction.tex}.
 To get the \git status I simply do \texttt{\textbackslash{}input\{git\_information\}}.
-This is included in the left margin of the \texttt{draft.pdf} target.  The \texttt{master.pdf} target simply sets \texttt{git\_information.tex} to the empty file.
+This is included in the left margin of the \texttt{master.pdf} if \make is invoked with \texttt{DRAFT=1}.
+If the \texttt{DRAFT} variable remains undefined \texttt{git\_information.tex} is set to the empty file.

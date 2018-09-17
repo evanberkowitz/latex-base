@@ -1,17 +1,23 @@
 \section{Makefile}
 
 The provided makefile uses \texttt{pdflatex} and \texttt{bibtex} to compile \texttt{master.pdf}, the base of which is set in the MASTER variable.
+You can change the executables in the \texttt{TEX} and \texttt{BIB} variables.
 
-The \texttt{\$(MASTER).pdf} target depends on the files in the \texttt{section} directory, \texttt{macros.tex}, and \texttt{\$(MASTER).tex}.
+The default target is \texttt{\$(MASTER).pdf}, drawn from \texttt{\$(MASTER).tex}.
+You can add other root-level documents and simply do \texttt{make other-document.pdf}.
+The PDF targets depend on the files in the \texttt{section} directory \texttt{macros.tex}, and their corresponding root-level \TeX\ document.
 
-The \texttt{\$(GIT\_STATUS)} phony target uses \texttt{git\_information.sh} to produce the \texttt{git\_information.tex} file explained above.
+The \texttt{\$(GIT\_STATUS)} phony target uses \texttt{git\_information.sh} to produce the \texttt{git\_information.tex} file explained above, but only if the \texttt{DRAFT} variable is set in the invocation of \make.
 
 The \texttt{git-hooks} target symbolically links the git hooks into the repository's \texttt{.git} directory.
 
-The \texttt{clean\_temporary\_files} and \texttt{clean} targets remove a lot of cruft automatically generated during the course of compiling the \LaTeX to PDF.
+The \texttt{tidy} and \texttt{clean} targets remove a lot of cruft automatically generated during the course of compiling the \LaTeX to PDF.
 
 The \texttt{watch} target uses \texttt{watchman-make}\cite{watchman} to continuously update the PDF as you make changes to the source files.
 This can interfere with the pre-commit git hook.
 It can also get stuck in an infinite loop.
 But if you tend to write decent \LaTeX the first time around, it'll be pretty reliable.
-
+It is sensitive to the \texttt{DRAFT} variable.
+If you want to watch and recompile a different PDF, you can set \texttt{TARGET=pdf-file-prefix}, leaving out the \texttt{.pdf}.
+The \texttt{TARGET} variable is also used by the \texttt{tidy} and \texttt{clean} targets.
+It is automatically set to \texttt{\$(MASTER)} if not otherwise specified.
