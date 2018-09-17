@@ -7,7 +7,7 @@ They can be installed into the repo with
 \end{verbatim}
 which symbolically links the hooks in the \texttt{hooks} directory into the \texttt{.git/hooks} directory.
 
-The \texttt{pre-commit} hook prevents the user from \texttt{git commit}ting a commit that doesn't compile, which it tests for by stashing all files that don't belong to the commit and trying to \texttt{make master.pdf}.  The output of that \texttt{make} is created in the \texttt{.git-pre-commit-hook.log} in the root directory of this repository, so that the user can see the \LaTeX in the event the PDF doesn't compile.
+The \texttt{pre-commit} hook prevents the user from \texttt{git commit}ting a commit that doesn't compile, which it tests for by stashing all files that don't belong to the commit and trying to \texttt{make master.pdf}.  The output of that \make is created in the \texttt{.git-pre-commit-hook.log} in the root directory of this repository, so that the user can see the \LaTeX in the event the PDF doesn't compile.
 
 The \texttt{post-merge} hook tries to compile the latest PDF, also using \texttt{make master.pdf} after the repository has been updated.
 It is much less sophisticated than the pre-commit hook, because (under the assumption the pre-commit hook is working) the committed state of the repo should always compile.
