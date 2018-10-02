@@ -5,12 +5,16 @@
 %%%%    Referring to Parts of the Document
 %%%%
 
+\newcommand{\secref}[1]{Sec.~\ref{sec:#1}}
+\newcommand{\Secref}[1]{Section~\ref{sec:#1}}
 \newcommand{\tabref}[1]{Tab.~\ref{tab:#1}\xspace}
 \newcommand{\Tabref}[1]{Table~\ref{tab:#1}\xspace}
 \newcommand{\figref}[1]{Fig.~\ref{fig:#1}\xspace}
 \newcommand{\Figref}[1]{Figure~\ref{fig:#1}\xspace}
 \renewcommand{\eqref}[1]{(\ref{#1})\xspace}
 \newcommand{\Eqref}[1]{Equation~\ref{eq:#1}\xspace}
+\newcommand{\Ref}[1]{Ref.~\cite{#1}}
+\newcommand{\Reference}[1]{Reference~\cite{#1}}
 
 %%%%
 %%%%    Referring to Other Documents
@@ -25,6 +29,7 @@
 
 \newcommand{\goesto}{\ensuremath{\rightarrow}}
 \newcommand{\Integers}{\mathbb{Z}\xspace}
+\newcommand{\integers}{\Integers}
 \newcommand{\one}{\ensuremath{\mathbbm{1}}}
 \newcommand{\order}[1]{\ensuremath{\mathcal{O}\left(#1\right)}\xspace}
 \newcommand{\Rationals}{\mathbb{Q}\xspace}
@@ -54,6 +59,16 @@
 \DeclareMathOperator{\arccsc}{arccsc}
 
 %%%%
+%%%%    Fractions
+%%%%
+
+\newcommand{\oneover}[1]{\ensuremath{\frac{1}{#1}}}                             %   1/[argument]
+\newcommand{\inverse}{\ensuremath{^{-1}}}                                       %   argument^-1
+\newcommand{\half}{\ensuremath{\frac{1}{2}} }                                   %   1/2
+\newcommand{\quarter}{\ensuremath{\frac{1}{4}} }                                %   1/4
+
+
+%%%%
 %%%%    Mathematical Delimiters
 %%%%
 \newcommand{\abs}[1]{\ensuremath{\left| #1 \right|}\xspace}
@@ -66,6 +81,14 @@
 \newcommand{\bracket}[2]{\ensuremath{\left\langle\;#1\;\middle|\;#2\;\right\rangle}}
 \let\braket\bracket
 
+
+%%%%
+%%%%    Matrices
+%%%%
+
+\newcommand{\identity}{\ensuremath{\mathds{1}}}
+\newcommand{\diag}[1]{\ensuremath{\text{diag}\left(#1\right)}}
+\newcommand{\tr}[1]{\ensuremath{\text{tr}\left[#1\right]}}
 
 %%%%
 %%%%    Physical Quantities and Constants
