@@ -1,6 +1,5 @@
-TEX=pdflatex -halt-on-error
+TEX=pdflatex -halt-on-error -shell-escape
 BIB=bibtex
-GIT_STATUS=git_information.tex
 
 MASTER=master
 TARGET?=$(MASTER)
@@ -14,20 +13,11 @@ all: $(MASTER).pdf
 
 %.pdf: $(SECTIONS) macros.tex %.tex
 	@echo $@
-	make $(GIT_STATUS) $(REDIRECT)
 	$(TEX) -jobname=$* $*.tex $(REDIRECT)
 	-$(BIB) $* $(REDIRECT)
 	$(TEX) -jobname=$* $*.tex $(REDIRECT)
 	$(TEX) -jobname=$* $*.tex $(REDIRECT)
 	make tidy
-
-.PHONY: $(GIT_STATUS)
-$(GIT_STATUS): 
-ifdef DRAFT
-	./git_information.sh > $(GIT_STATUS)
-else
-	echo "" > $(GIT_STATUS)
-endif
 
 .PHONY: git-hooks
 git-hooks:
@@ -40,7 +30,6 @@ tidy:
 
 .PHONY: clean
 clean: tidy
-	$(RM) $(GIT_STATUS)
 	$(RM) $(TARGET)Notes.bib
 	$(RM) $(TARGET).pdf
 
