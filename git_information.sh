@@ -15,6 +15,7 @@ else
 fi
 
 result="\newcommand{\gitmarginsetup}{
+    \usepackage[dvipsnames]{xcolor}
     \usepackage[ angle=90, color=black, opacity=1, scale=2, ]{background} 
     \SetBgPosition{current page.west} 
     \SetBgVshift{-4.5mm} 
