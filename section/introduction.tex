@@ -11,16 +11,19 @@ In particular, I have written \git hooks that ensure individual commits successf
 That helps keep everybody\ldots\ on the same page.
 
 I also have a small shell script that reports the status of the repo when the PDF is being compiled.
-The script \texttt{git\_information.sh} produces \texttt{git\_information.tex} which looks, in the current example, like
+The script \texttt{repo/git.sh} produces some \LaTeX which, in the current example, like
 \begin{verbatim}
-\newcommand{\gitmarginsetup}{
+\newcommand{\repositoryInformationSetup}{
     \usepackage[dvipsnames]{xcolor}
     \usepackage[ angle=90, color=black, opacity=1, scale=2, ]{background}
     \SetBgPosition{current page.west}
     \SetBgVshift{-4.5mm}
     \backgroundsetup{contents={{\color{Red}1 file different from 
-        commit 770ae8c from 2018-11-05 14:52:08 +0100}}}
+        commit da2aebc from 2018-11-05 15:29:15 +0100}}}
 }\end{verbatim}
 The one dirty file is the one I'm working on---\texttt{section/introduction.tex}.
 To get the \git status on the left margin of every page I simply invoke \texttt{make DRAFT=1}.
 One may invoke \make alone or use, for example, \texttt{pdflatex master.tex}, to produce a PDF without the \git information in the margin.
+
+By adding additional scripts in the \texttt{repo} directory and changing the \texttt{REPO} makefile variable from \git to a version control system of your choice, you can extend the ability of this skeleton to provide information about the state of the repository.
+The script must simply define \texttt{{\textbackslash}repositoryInformationSetup} which is invoked once in the preamble to \texttt{master.tex}.

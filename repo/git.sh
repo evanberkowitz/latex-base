@@ -14,7 +14,7 @@ else
     result="{\color{Green}${result}}"
 fi
 
-result="\newcommand{\gitmarginsetup}{
+result="\newcommand{\repositoryInformationSetup}{
     \usepackage[dvipsnames]{xcolor}
     \usepackage[ angle=90, color=black, opacity=1, scale=2, ]{background} 
     \SetBgPosition{current page.west} 

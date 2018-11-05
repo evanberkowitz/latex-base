@@ -1,5 +1,6 @@
 TEX=pdflatex -halt-on-error
 BIB=bibtex
+REPO=git
 
 MASTER=master
 TARGET?=$(MASTER)
@@ -11,7 +12,7 @@ ifndef VERBOSE
 endif
 
 ifdef DRAFT
-	OPTIONS= "$(shell ./git_information.sh)\input{$*.tex}"
+	OPTIONS= "$(shell ./repo/$(REPO).sh)\input{$*.tex}"
 else
 	OPTIONS= '\input{$*.tex}'
 endif
