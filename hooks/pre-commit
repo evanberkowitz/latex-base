@@ -8,7 +8,7 @@ git stash push --keep-index --include-untracked --message $STASH_NAME
 echo "Making based on latest commit..."
 
 pushd "$(git rev-parse --show-toplevel)" > /dev/null
-make master.pdf > "$LOG"
+make DRAFT=1 master.pdf > "$LOG"
 RESULT=$?
 popd > /dev/null
 
