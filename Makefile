@@ -1,4 +1,4 @@
-TEX=pdflatex -halt-on-error -shell-escape
+TEX=pdflatex -halt-on-error
 BIB=bibtex
 
 MASTER=master
@@ -9,16 +9,22 @@ ifndef VERBOSE
 	REDIRECT=1>/dev/null 2>/dev/null
 endif
 
+ifdef DRAFT
+	OPTIONS= "$(shell ./git_information.sh)\input{$*.tex}"
+else
+	OPTIONS= '\input{$*.tex}'
+endif
+
 all: $(MASTER).pdf
 
 %.pdf: $(SECTIONS) macros.tex %.tex
 	@echo $@
-	$(TEX) -jobname=$* $*.tex $(REDIRECT)
+	$(TEX) -jobname=$* $(OPTIONS) $(REDIRECT)
 	-$(BIB) $* $(REDIRECT)
-	$(TEX) -jobname=$* $*.tex $(REDIRECT)
-	$(TEX) -jobname=$* $*.tex $(REDIRECT)
+	$(TEX) -jobname=$* $(OPTIONS) $(REDIRECT)
+	$(TEX) -jobname=$* $(OPTIONS) $(REDIRECT)
 	make tidy
-
+	
 .PHONY: git-hooks
 git-hooks:
 	for h in hooks/*; do ln -f -s "../../$$h" ".git/$$h"; done
