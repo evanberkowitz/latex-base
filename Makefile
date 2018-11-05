@@ -4,6 +4,7 @@ BIB=bibtex
 MASTER=master
 TARGET?=$(MASTER)
 SECTIONS = $(shell ls -1 section/ | sed -e 's/^/section\//g')
+BIBS = $(find . -name '*.bib')
 
 ifndef VERBOSE
 	REDIRECT=1>/dev/null 2>/dev/null
@@ -17,7 +18,7 @@ endif
 
 all: $(MASTER).pdf
 
-%.pdf: $(SECTIONS) macros.tex %.tex
+%.pdf: $(SECTIONS) $(BIBS) macros.tex %.tex
 	@echo $@
 	$(TEX) -jobname=$* $(OPTIONS) $(REDIRECT)
 	-$(BIB) $* $(REDIRECT)
@@ -31,7 +32,7 @@ git-hooks:
 
 .PHONY: tidy
 tidy:
-	$(RM) git_information.aux section/*.aux
+	$(RM) section/*.aux
 	$(RM) $(TARGET).{out,log,aux,synctex.gz,bbl,blg,toc,fls,fdb_latexmk}
 
 .PHONY: clean

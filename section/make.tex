@@ -5,9 +5,7 @@ You can change the executables in the \texttt{TEX} and \texttt{BIB} variables.
 
 The default target is \texttt{\$(MASTER).pdf}, drawn from \texttt{\$(MASTER).tex}.
 You can add other root-level documents and simply do \texttt{make other-document.pdf}.
-The PDF targets depend on the files in the \texttt{section} directory \texttt{macros.tex}, and their corresponding root-level \TeX\ document.
-
-The \texttt{\$(GIT\_STATUS)} phony target uses \texttt{git\_information.sh} to produce the \texttt{git\_information.tex} file explained above, but only if the \texttt{DRAFT} variable is set in the invocation of \make.
+The PDF targets depend on the files in the \texttt{section} directory, \texttt{macros.tex}, all \texttt{.bib} files in the repository, and the corresponding root-level \TeX\ document.
 
 The \texttt{git-hooks} target symbolically links the git hooks into the repository's \texttt{.git} directory.
 
@@ -21,3 +19,5 @@ It is sensitive to the \texttt{DRAFT} variable.
 If you want to watch and recompile a different PDF, you can set \texttt{TARGET=pdf-file-prefix}, leaving out the \texttt{.pdf}.
 The \texttt{TARGET} variable is also used by the \texttt{tidy} and \texttt{clean} targets.
 It is automatically set to \texttt{\$(MASTER)} if not otherwise specified.
+
+The \texttt{DRAFT} variable also controls whether the \git repository information is produced on the left margin, as explained in the introduction.
