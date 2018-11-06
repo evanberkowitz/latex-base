@@ -34,10 +34,11 @@ git-hooks:
 .PHONY: tidy
 tidy:
 	$(RM) section/*.aux
-	$(RM) $(TARGET).{out,log,aux,synctex.gz,bbl,blg,toc,fls,fdb_latexmk}
+	$(RM) $(TARGET).{out,log,aux,synctex.gz,blg,toc,fls,fdb_latexmk}
 
 .PHONY: clean
 clean: tidy
+	$(RM) $(TARGET).bbl
 	$(RM) $(TARGET)Notes.bib
 	$(RM) $(TARGET).pdf
 
