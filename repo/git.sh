@@ -1,6 +1,29 @@
 #!/usr/bin/env bash
 
-result="`git status --porcelain 2>/dev/null| wc -l | tr -d [:blank:]`"' files different from commit '"`git rev-parse --short HEAD`"' from '"`git log -1 --format=%ad --date=iso`"
+OLD=$1
+NEW=$2
+
+THIS=$(realpath $0)
+GIT=$(dirname ${THIS})/..
+
+if [ -z "$OLD" ]; then
+	OLD=HEAD
+fi
+
+if [ -z "$NEW" ]; then
+	NEW="--"
+fi
+
+# Double hyphens is a ligature in TeX:
+if [ "--" == "${NEW}" ]; then
+	NEWPRINT="-{}-"
+else
+	NEWPRINT="${NEW}"
+fi
+
+pushd ${GIT} 2>/dev/null 1>/dev/null
+
+result="`git diff --name-only ${OLD} ${NEW} 2>/dev/null | wc -l | tr -d [:blank:]`"' files in '"\texttt{${NEWPRINT}}"' different from commit '"\texttt{${OLD}}"' from '"`git show -s --format=%ad --date=iso ${OLD}`"
 
 # Correct "1 files" pluralization madness.
 if [[ "${result:0:2}" == "1 " ]]; then
@@ -21,5 +44,7 @@ result="\newcommand{\repositoryInformationSetup}{
     \SetBgVshift{-4.5mm} 
     \backgroundsetup{contents={${result}}}
 }"
+
+popd 2>/dev/null 1>/dev/null
 
 echo "${result}"
