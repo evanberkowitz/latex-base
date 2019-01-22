@@ -2,7 +2,7 @@ TEX=pdflatex -halt-on-error
 BIB=bibtex
 
 REPO=git
-OLD?=HEAD
+OLD?=$(shell git rev-parse --short HEAD)
 NEW?=--
 ROOT:=$(shell pwd)
 
