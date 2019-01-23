@@ -21,9 +21,13 @@ else
 	NEWPRINT="${NEW}"
 fi
 
+# Handle commit IDs that have ~ in them, like HEAD~3
+OLDPRINT=${OLD/\~/\{\\textasciitilde\}}
+NEWPRINT=${NEWPRINT/\~/\{\\textasciitilde\}}
+
 pushd ${GIT} 2>/dev/null 1>/dev/null
 
-result="`git diff --name-only ${OLD} ${NEW} 2>/dev/null | wc -l | tr -d [:blank:]`"' files in '"\texttt{${NEWPRINT}}"' different from commit '"\texttt{${OLD}}"' from '"`git show -s --format=%ad --date=iso ${OLD}`"
+result="`git diff --name-only ${OLD} ${NEW} 2>/dev/null | wc -l | tr -d [:blank:]`"' files in '"\texttt{${NEWPRINT}}"' different from commit '"\texttt{${OLDPRINT}}"' from '"`git show -s --format=%ad --date=iso ${OLD}`"
 
 # Correct "1 files" pluralization madness.
 if [[ "${result:0:2}" == "1 " ]]; then
