@@ -1,0 +1,23 @@
+\section{Version Control Information}\label{sec:vc}
+
+There is a small shell script that reports the status of the repo when the PDF is being compiled.
+The script \texttt{repo/git.sh} produces some \LaTeX which, in the current example, like
+\begin{verbatim}
+\newcommand{\repositoryInformationSetup}{
+    \usepackage[dvipsnames]{xcolor}
+    \usepackage[ angle=90, color=black, opacity=1, scale=2, ]{background}
+    \SetBgPosition{current page.west}
+    \SetBgVshift{-4.5mm}
+    \backgroundsetup{contents={{\color{Red}3 files in \texttt{-{}-} different from commit \
+        \texttt{HEAD} from 2019-01-22 10:35:10 +0100}}}
+}
+\end{verbatim}
+
+By adding additional scripts in the \texttt{repo} directory and changing the \texttt{REPO} makefile variable from \git to a version control system of your choice, you can extend the ability of this skeleton to provide information about the state of the repository.
+The script must simply return \texttt{{\textbackslash}repositoryInformationSetup}.
+How the \texttt{{\textbackslash}repositoryInformationSetup} is smuggled into the \TeX\ itself is discussed in \Secref{make} on \texttt{make}.
+
+\texttt{repo/git.sh} takes two ordered, optional arguments.  \texttt{OLD} and \texttt{NEW}, which allows you to specify which commits you wish to compare.  They default to \texttt{HEAD} and \texttt{-{}-}, respectively, so that the default behavior compares the current state of the repository with the latest commit.  This is useful with the \texttt{DIFF} flag for \texttt{make}, discussed in \Secref{make}.
+
+To get the \git status on the left margin of every page I simply invoke \texttt{make DRAFT=1}.
+One may invoke \make alone or use, for example, \texttt{pdflatex master.tex}, to produce a PDF without the \git information in the margin.

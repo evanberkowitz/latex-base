@@ -17,11 +17,16 @@ ifndef VERBOSE
 endif
 
 ifdef DRAFT
-	OPTIONS:=$(shell ./repo/$(REPO).sh $(OLD) $(NEW))
+	OPTIONS?=$(shell ./repo/$(REPO).sh $(OLD) $(NEW))
 endif
 
 all: $(MASTER).pdf
 
+ifndef DIFF
+%.pdf: $(SECTIONS) $(BIBS) macros.tex %.tex
+	DIFF=1 SHORTCIRCUIT=1 $(MAKE) $*.pdf
+else
+ifdef SHORTCIRCUIT
 %.pdf: $(SECTIONS) $(BIBS) macros.tex %.tex
 	@echo $@
 	$(TEX) -jobname=$* "$(OPTIONS)\input{$*}" $(REDIRECT)
@@ -29,14 +34,19 @@ all: $(MASTER).pdf
 	$(TEX) -jobname=$* "$(OPTIONS)\input{$*}" $(REDIRECT)
 	$(TEX) -jobname=$* "$(OPTIONS)\input{$*}" $(REDIRECT)
 	make tidy
-
-.PHONY: diff
-diff:
-	git latexdiff --whole-tree --main $(TARGET).tex --prepare "rm -rf repo; ln -s $(ROOT)/repo" -o $(TARGET).pdf $(OLD) $(NEW)
+else
+%.pdf: $(SECTIONS) $(BIBS) macros.tex %.tex
+	SHORTCIRCUIT=1 OPTIONS="$(OPTIONS)" git latexdiff --whole-tree --main $(TARGET).tex --prepare "rm -rf repo; ln -s $(ROOT)/repo" -o $(TARGET).pdf $(OLD) $(NEW)
+endif
+endif
 
 .PHONY: git-hooks
 git-hooks:
 	for h in hooks/*; do ln -f -s "../../$$h" ".git/$$h"; done
+
+.PHONY: remove-git-hooks
+remove-git-hooks:
+	for h in hooks/*; do rm ".git/$$h"; done
 
 .PHONY: tidy
 tidy:
