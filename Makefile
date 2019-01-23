@@ -33,7 +33,7 @@ ifdef SHORTCIRCUIT
 	-$(BIB) $* $(REDIRECT)
 	$(TEX) -jobname=$* "$(OPTIONS)\input{$*}" $(REDIRECT)
 	$(TEX) -jobname=$* "$(OPTIONS)\input{$*}" $(REDIRECT)
-	make tidy
+	$(MAKE) tidy
 else
 %.pdf: $(SECTIONS) $(BIBS) macros.tex %.tex
 	SHORTCIRCUIT=1 OPTIONS="$(OPTIONS)" git latexdiff --whole-tree --main $(TARGET).tex --prepare "rm -rf repo; ln -s $(ROOT)/repo" -o $(TARGET).pdf $(OLD) $(NEW)
