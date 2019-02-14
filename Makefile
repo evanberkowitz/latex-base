@@ -20,7 +20,7 @@ ifdef DRAFT
 	OPTIONS?=$(shell ./repo/$(REPO).sh $(OLD) $(NEW))
 endif
 
-all: $(MASTER).pdf
+all: $(TARGET).pdf
 
 ifndef DIFF
 %.pdf: $(SECTIONS) $(BIBS) macros.tex %.tex
