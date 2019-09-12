@@ -8,7 +8,7 @@ ROOT:=$(shell pwd)
 
 MASTER=master
 TARGET?=$(MASTER)
-SECTIONS = $(shell ls -1 section/ | sed -e 's/^/section\//g')
+SECTIONS = $(shell find section -type f) 
 BIBS = $(find . -name '*.bib')
 
 
