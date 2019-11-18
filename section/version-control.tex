@@ -19,5 +19,5 @@ How the \texttt{{\textbackslash}repositoryInformationSetup} is smuggled into the
 
 \texttt{repo/git.sh} takes two ordered, optional arguments.  \texttt{OLD} and \texttt{NEW}, which allows you to specify which commits you wish to compare.  They default to \texttt{HEAD} and \texttt{-{}-}, respectively, so that the default behavior compares the current state of the repository with the latest commit.  This is useful with the \texttt{DIFF} flag for \texttt{make}, discussed in \Secref{make}.
 
-To get the \git status on the left margin of every page I simply invoke \texttt{make DRAFT=1}.
-One may invoke \make alone or use, for example, \texttt{pdflatex master.tex}, to produce a PDF without the \git information in the margin.
+To get the \git status on the left margin of every page I simply invoke \texttt{make}.
+One may invoke \texttt{\make FINAL=1} or use, for example, \texttt{pdflatex master.tex}, to produce a PDF without the \git information in the margin.

@@ -2,7 +2,7 @@
 
 echo -n "Making latest version..."
 pushd "$(git rev-parse --show-toplevel)" > /dev/null
-make DRAFT=1 master.pdf 1>/dev/null 2>/dev/null
+make master.pdf 1>/dev/null 2>/dev/null
 RESULT=$?
 popd > /dev/null
 
