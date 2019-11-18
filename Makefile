@@ -1,4 +1,4 @@
-TEX=pdflatex -halt-on-error
+TEX=pdflatex -halt-on-error -interaction=errorstopmode
 BIB=bibtex
 
 REPO=git
@@ -8,7 +8,7 @@ ROOT:=$(shell pwd)
 
 MASTER=master
 TARGET?=$(MASTER)
-SECTIONS = $(shell find section -type f) 
+SECTIONS = $(shell find section -type f)
 BIBS = $(find . -name '*.bib')
 
 
@@ -16,7 +16,7 @@ ifndef VERBOSE
 	REDIRECT=1>/dev/null 2>/dev/null
 endif
 
-ifdef DRAFT
+ifndef FINAL
 	OPTIONS?=$(shell ./repo/$(REPO).sh $(OLD) $(NEW))
 endif
 
@@ -61,4 +61,4 @@ clean: tidy
 
 .PHONY: watch
 watch: $(TARGET).pdf
-	watchman-make -p '**/*.tex' '*/*.tex' '*.tex' '*.bib' -t $(TARGET).pdf 
+	watchman-make -p '**/*.tex' '*/*.tex' '*.tex' '*.bib' -t $(TARGET).pdf
