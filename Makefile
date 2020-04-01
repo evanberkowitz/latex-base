@@ -61,4 +61,4 @@ clean: tidy
 
 .PHONY: watch
 watch: $(TARGET).pdf
-	watchman-make -p '**/*.tex' '*/*.tex' '*.tex' '*.bib' -t $(TARGET).pdf
+	when-changed -s -1 -r . make
