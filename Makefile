@@ -23,11 +23,11 @@ endif
 all: $(TARGET).pdf
 
 ifndef DIFF
-%.pdf: $(SECTIONS) $(BIBS) macros.tex %.tex
+%.pdf: .git/HEAD .git/index $(SECTIONS) $(BIBS) macros.tex %.tex
 	DIFF=1 SHORTCIRCUIT=1 $(MAKE) $*.pdf
 else
 ifdef SHORTCIRCUIT
-%.pdf: $(SECTIONS) $(BIBS) macros.tex %.tex
+%.pdf: .git/HEAD .git/index $(SECTIONS) $(BIBS) macros.tex %.tex
 	@echo $@
 	$(TEX) -jobname=$* "$(OPTIONS)\input{$*}" $(REDIRECT)
 	-$(BIB) $* $(REDIRECT)
