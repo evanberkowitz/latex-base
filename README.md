@@ -21,7 +21,7 @@ Mandatory:
 
  - `git`
  - `make`
- - A LaTeX installation.
+ - A LaTeX installation, including the [REVTeX](https://en.wikipedia.org/wiki/REVTeX) macros.
 
 Optional:
 
