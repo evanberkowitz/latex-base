@@ -1,4 +1,4 @@
-TEX=pdflatex -halt-on-error -interaction=errorstopmode
+TEX=pdflatex -halt-on-error -interaction=nonstopmode
 BIB=bibtex
 
 REPO=git
@@ -39,14 +39,6 @@ else
 	SHORTCIRCUIT=1 OPTIONS="$(OPTIONS)" git latexdiff --whole-tree --main $(TARGET).tex --prepare "rm -rf repo; ln -s $(ROOT)/repo" -o $(TARGET).pdf $(OLD) $(NEW)
 endif
 endif
-
-.PHONY: git-hooks
-git-hooks:
-	for h in hooks/*; do ln -f -s "../../$$h" ".git/$$h"; done
-
-.PHONY: remove-git-hooks
-remove-git-hooks:
-	for h in hooks/*; do rm ".git/$$h"; done
 
 .PHONY: tidy
 tidy:
