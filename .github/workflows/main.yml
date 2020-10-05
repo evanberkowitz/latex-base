@@ -15,7 +15,7 @@ jobs:
           args: VERBOSE=1
           root_file: ${{ env.target }}.pdf
       - name: Copy to SHA-suffixed file
-        run: cp ${{ env.target}}.pdf ${{ env.target}}.${{ github.sha }}.pdf
+        run: cp ${{ env.target}}.pdf ${{ env.target}}-${{ github.sha }}.pdf
       - name: Store compiled PDF artifact
         if: success()
         uses: actions/upload-artifact@v2
