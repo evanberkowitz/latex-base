@@ -13,7 +13,9 @@ jobs:
           args: VERBOSE=1
           root_file: master.pdf
       - name: Store compiled PDF artifact
+        if: success()
         uses: actions/checkout@v2
         with:
-          name: master-${GITHUB_SHA}.pdf
+          name: master-${{ env.GITHUB_SHA }}.pdf
           path: master.pdf
+          if-no-files-found: error
