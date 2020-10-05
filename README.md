@@ -25,5 +25,5 @@ Mandatory:
 
 Optional:
 
- - [`watchman`](https://github.com/facebook/watchman/), for continuous TeX recompilation.
+ - [`when-changed`](https://github.com/joh/when-changed), for continuous TeX recompilation.
  - [`git latexdiff`](https://gitlab.com/git-latexdiff/git-latexdiff), for producing PDFs with diff highlighting.
