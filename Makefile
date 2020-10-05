@@ -40,14 +40,6 @@ else
 endif
 endif
 
-.PHONY: git-hooks
-git-hooks:
-	for h in hooks/*; do ln -f -s "../../$$h" ".git/$$h"; done
-
-.PHONY: remove-git-hooks
-remove-git-hooks:
-	for h in hooks/*; do rm ".git/$$h"; done
-
 .PHONY: tidy
 tidy:
 	$(RM) section/*.aux
