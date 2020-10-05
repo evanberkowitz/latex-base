@@ -1,10 +1,10 @@
 name: Build LaTeX document
 on: [push, pull_request]
+env:
+  target: master
 jobs:
   build_latex:
     runs-on: ubuntu-latest
-    env:
-      target: master
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v1
