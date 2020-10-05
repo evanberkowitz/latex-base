@@ -12,3 +12,8 @@ jobs:
           compiler:  make
           args: VERBOSE=1
           root_file: master.pdf
+      - name: Store compiled PDF artifact
+        uses: actions/checkout@v2
+        with:
+          name: master-${GITHUB_SHA}.pdf
+          path: master.pdf
