@@ -1,4 +1,4 @@
-TEX=pdflatex -halt-on-error -interaction=errorstopmode
+TEX=pdflatex -halt-on-error -interaction=nonstopmode
 BIB=bibtex
 
 REPO=git
