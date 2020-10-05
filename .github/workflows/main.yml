@@ -18,6 +18,6 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.target }}-${{ env.GITHUB_SHA }}.pdf
+          name: ${{ env.target }}-${{ github.sha }}.pdf
           path: ${{ env.target }}.pdf
           if-no-files-found: error
