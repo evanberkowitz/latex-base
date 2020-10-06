@@ -16,12 +16,12 @@ jobs:
           compiler:  make
           args: VERBOSE=1 TARGET=${{ env.target }}
           root_file: ${{ env.target }}.pdf
-      - name: Copy to SHA-suffixed file
-        run: cp ${{ env.target}}.pdf ${{ env.target}}-${{ github.sha }}.pdf
+      - name: Copy to ref-suffixed file
+        run: cp ${{ env.target }}.pdf ${{ env.target }}-${{ github.ref }}.pdf
       - name: Store compiled PDF artifact
         if: success()
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.target }}-${{ github.sha }}.pdf
-          path: ${{ env.target }}-${{ github.sha }}.pdf
+          name: ${{ env.target }}-${{ github.ref }}.pdf
+          path: ${{ env.target }}-${{ github.ref }}.pdf
           if-no-files-found: error
