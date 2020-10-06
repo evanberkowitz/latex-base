@@ -2,6 +2,7 @@ name: Build LaTeX document
 on: [push]
 env:
   target: master
+  ref:    ${GITHUB_REF#refs/heads/}
 jobs:
   build_latex:
     runs-on: ubuntu-latest
@@ -17,11 +18,11 @@ jobs:
           args: VERBOSE=1 TARGET=${{ env.target }}
           root_file: ${{ env.target }}.pdf
       - name: Copy to ref-suffixed file
-        run: cp ${{ env.target }}.pdf ${{ env.target }}-${{ github.ref }}.pdf
+        run: cp ${{ env.target }}.pdf ${{ env.target }}-${{ env.ref }}.pdf
       - name: Store compiled PDF artifact
         if: success()
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.target }}-${{ github.ref }}.pdf
-          path: ${{ env.target }}-${{ github.ref }}.pdf
+          name: ${{ env.target }}-${{ env.ref }}.pdf
+          path: ${{ env.target }}-${{ env.ref }}.pdf
           if-no-files-found: error
