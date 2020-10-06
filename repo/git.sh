@@ -27,7 +27,16 @@ NEWPRINT=${NEWPRINT/\~/\{\\textasciitilde\}}
 
 pushd ${GIT} 2>/dev/null 1>/dev/null
 
-result="`git diff --name-only ${OLD} ${NEW} 2>/dev/null | wc -l | tr -d [:blank:]`"' files in '"\texttt{${NEWPRINT}}"' different from commit '"\texttt{${OLDPRINT}}"' from '"`git show -s --format=%ad --date=iso ${OLD}`"
+echo "Deducing diff..." >&2
+
+echo git branches are >&2
+git branch -vv >&2
+
+echo OLD is ${OLD} >&2
+echo NEW is ${NEW} >&2
+files_changed=`git diff --name-only ${OLD} ${NEW} 2>/dev/null | wc -l | tr -d [:blank:]`
+
+result="${files_changed} files in "'\texttt{'"${NEWPRINT}"'} different from commit \texttt{'"${OLDPRINT}"'}'
 
 # Correct "1 files" pluralization madness.
 if [[ "${result:0:2}" == "1 " ]]; then

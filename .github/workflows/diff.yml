@@ -2,25 +2,31 @@ name: Build LaTeX DIFF
 on: [pull_request]
 env:
   target: master
-  file:   ${{ env.target}}-${{ github.head_ref }}-vs-${{ github.base_ref }}.pdf
 jobs:
   build_latex:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Get BASE branch
+        run:  git checkout ${{ github.base_ref }}
+      - name: Get HEAD branch
+        run:  git checkout ${{ github.head_ref }}
       - name: Compile LaTeX document
         uses: dante-ev/latex-action@master
         with:
           compiler:  make
-          args: VERBOSE=1 DIFF=1 OLD=${GITHUB_BASE_REF} NEW=${GITHUB_HEAD_REF} TARGET=${{ env.target }}
+          args: VERBOSE=1 DIFF=1 OLD=${{ github.base_ref }} NEW=${{ github.head_ref}} TARGET=${{ env.target }}
           root_file: ${{ env.target }}.pdf
       - name: Copy to SHA-suffixed file
-        run: cp ${{ env.target}}.pdf ${{ env.file }}
+
+        run: cp ${{ env.target}}.pdf ${{ env.target}}-${{ github.head_ref }}-vs-${{ github.base_ref }}.pdf
       - name: Store compiled PDF artifact
         if: success()
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.file }}
-          path: ${{ env.file }}
+          name: ${{ env.target}}-${{ github.head_ref }}-vs-${{ github.base_ref }}.pdf
+          path: ${{ env.target}}-${{ github.head_ref }}-vs-${{ github.base_ref }}.pdf
           if-no-files-found: error
