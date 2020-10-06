@@ -27,6 +27,8 @@ NEWPRINT=${NEWPRINT/\~/\{\\textasciitilde\}}
 
 pushd ${GIT} 2>/dev/null 1>/dev/null
 
+echo "Deducing diff..." >&2
+
 result="`git diff --name-only ${OLD} ${NEW} 2>/dev/null | wc -l | tr -d [:blank:]`"' files in '"\texttt{${NEWPRINT}}"' different from commit '"\texttt{${OLDPRINT}}"' from '"`git show -s --format=%ad --date=iso ${OLD}`"
 
 # Correct "1 files" pluralization madness.
