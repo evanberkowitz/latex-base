@@ -12,7 +12,7 @@ jobs:
         uses: dante-ev/latex-action@master
         with:
           compiler:  make
-          args: VERBOSE=1
+          args: VERBOSE=1 TARGET=${{ env.target }}
           root_file: ${{ env.target }}.pdf
       - name: Copy to SHA-suffixed file
         run: cp ${{ env.target}}.pdf ${{ env.target}}-${{ github.sha }}.pdf
