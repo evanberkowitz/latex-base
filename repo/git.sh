@@ -29,6 +29,8 @@ pushd ${GIT} 2>/dev/null 1>/dev/null
 
 echo "Deducing diff..." >&2
 
+echo OLD is ${OLD}
+echo NEW is ${NEW}
 files_changed=`git diff --name-only ${OLD} ${NEW} 2>/dev/null | wc -l | tr -d [:blank:]`
 
 result="${files_changed} files in "'\texttt{'"${NEWPRINT}"'} different from commit \texttt{'"${OLDPRINT}"'}'
