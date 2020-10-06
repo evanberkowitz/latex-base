@@ -4,7 +4,7 @@ env:
   target: master
   ref:    ${GITHUB_REF#refs/heads/}
 jobs:
-  build_latex:
+  build-head-pdf:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
