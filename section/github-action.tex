@@ -28,4 +28,4 @@ Artifacts are always ZIP files.  When you unzip it you will see a PDF, which ref
 \end{center}
 To turn off the repository information printed on the side of the PDF, add \texttt{FINAL=1} to the \texttt{args} of the \texttt{latex-action} step of the \href{https://github.com/evanberkowitz/latex-base/blob/gh-action/.github/workflows/main.yml}{.github/workflows/main.yml}.
 
-
+On a \texttt{pull\_request} we also produce an artifact showing the diffs between the \texttt{BASE} and \texttt{HEAD}.
