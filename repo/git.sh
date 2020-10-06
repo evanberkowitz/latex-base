@@ -29,6 +29,9 @@ pushd ${GIT} 2>/dev/null 1>/dev/null
 
 echo "Deducing diff..." >&2
 
+echo git branches are >&2
+git branch -vv >&2
+
 echo OLD is ${OLD} >&2
 echo NEW is ${NEW} >&2
 files_changed=`git diff --name-only ${OLD} ${NEW} 2>/dev/null | wc -l | tr -d [:blank:]`
@@ -39,8 +42,6 @@ result="${files_changed} files in "'\texttt{'"${NEWPRINT}"'} different from comm
 if [[ "${result:0:2}" == "1 " ]]; then
     result=${result/1 files/1 file}
 fi
-
-echo "${result}" >&2
 
 # Turn red if there are dirty files.
 if [[ ! "${result:0:1}" == "0" ]]; then
