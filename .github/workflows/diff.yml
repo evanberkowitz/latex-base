@@ -1,0 +1,25 @@
+name: Build LaTeX document
+on: [pull_request]
+env:
+  target: master
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v1
+      - name: Compile LaTeX document
+        uses: dante-ev/latex-action@master
+        with:
+          compiler:  make
+          args: VERBOSE=1 DIFF=1 OLD=${GITHUB_BASE_REF} NEW=${GITHUB_HEAD_REF}
+          root_file: ${{ env.target }}.pdf
+      - name: Copy to SHA-suffixed file
+        run: cp ${{ env.target}}.pdf ${{ env.target}}-${{ github.sha }}.pdf
+      - name: Store compiled PDF artifact
+        if: success()
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.target }}-${{ github.sha }}.pdf
+          path: ${{ env.target }}-${{ github.sha }}.pdf
+          if-no-files-found: error
