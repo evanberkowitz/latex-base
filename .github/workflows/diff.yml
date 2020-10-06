@@ -8,6 +8,10 @@ jobs:
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2
+      - name: Get BASE branch
+        run:  git checkout ${{ github.base_ref }}
+      - name: Get HEAD branch
+        run:  git checkout ${{ github.head_ref }}
       - name: Compile LaTeX document
         uses: dante-ev/latex-action@master
         with:
