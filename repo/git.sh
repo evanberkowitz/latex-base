@@ -29,7 +29,13 @@ pushd ${GIT} 2>/dev/null 1>/dev/null
 
 echo "Deducing diff..." >&2
 
-result="`git diff --name-only ${OLD} ${NEW} 2>/dev/null | wc -l | tr -d [:blank:]`"' files in '"\texttt{${NEWPRINT}}"' different from commit '"\texttt{${OLDPRINT}}"' from '"`git show -s --format=%ad --date=iso ${OLD}`"
+files_changed=`git diff --name-only ${OLD} ${NEW} 2>/dev/null | wc -l | tr -d [:blank:]`
+echo files_changed: $files_changed >&2
+
+base_time=`git show -s --format=%ad --date=iso ${OLD}`
+echo base_time: $base_time >&2
+
+result="${files_changed} files in "'\texttt{'"${NEWPRINT}"'} different from commit \texttt{'"${OLDPRINT}"'} from '"${base_time}"
 
 # Correct "1 files" pluralization madness.
 if [[ "${result:0:2}" == "1 " ]]; then
