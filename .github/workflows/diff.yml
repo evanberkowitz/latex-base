@@ -1,7 +1,8 @@
-name: Build LaTeX document
+name: Build LaTeX DIFF
 on: [pull_request]
 env:
   target: master
+  file:   ${{ env.target}}-${{ github.head_ref }}-vs-${{ github.base_ref }}.pdf
 jobs:
   build_latex:
     runs-on: ubuntu-latest
@@ -15,11 +16,11 @@ jobs:
           args: VERBOSE=1 DIFF=1 OLD=${GITHUB_BASE_REF} NEW=${GITHUB_HEAD_REF}
           root_file: ${{ env.target }}.pdf
       - name: Copy to SHA-suffixed file
-        run: cp ${{ env.target}}.pdf ${{ env.target}}-${{ github.sha }}.pdf
+        run: cp ${{ env.target}}.pdf ${{ env.file }}
       - name: Store compiled PDF artifact
         if: success()
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.target }}-${{ github.sha }}.pdf
-          path: ${{ env.target }}-${{ github.sha }}.pdf
+          name: ${{ env.file }}
+          path: ${{ env.file }}
           if-no-files-found: error
