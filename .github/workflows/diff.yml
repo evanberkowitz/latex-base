@@ -3,7 +3,7 @@ on: [pull_request]
 env:
   target: master
 jobs:
-  build_latex:
+  build_diff:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
