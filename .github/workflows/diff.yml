@@ -12,7 +12,7 @@ jobs:
         uses: dante-ev/latex-action@master
         with:
           compiler:  make
-          args: VERBOSE=1 DIFF=1 OLD=${GITHUB_BASE_REF} NEW=${GITHUB_HEAD_REF} TARGET=${{ env.target }}
+          args: VERBOSE=1 DIFF=1 OLD=${{ github.base_ref }} NEW=${{ github.head_ref}} TARGET=${{ env.target }}
           root_file: ${{ env.target }}.pdf
       - name: Copy to SHA-suffixed file
 
