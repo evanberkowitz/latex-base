@@ -6,6 +6,14 @@ jobs:
   build-diff-pdf:
     runs-on: ubuntu-latest
     steps:
+      - name: Extract base name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(with_slashes=${{ github.base_ref#refs/heads/}}; echo ${with_slashes//\//-})"
+        id: extract_base
+      - name: Extract head name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(with_slashes=${{ github.head_ref#refs/heads/}}; echo ${with_slashes//\//-})"
+        id: extract_head
       - name: Set up Git repository
         uses: actions/checkout@v2
         with:
@@ -22,11 +30,11 @@ jobs:
           root_file: ${{ env.target }}.pdf
       - name: Copy to SHA-suffixed file
 
-        run: cp ${{ env.target}}.pdf ${{ env.target}}-${{ github.head_ref }}-vs-${{ github.base_ref }}.pdf
+        run: cp ${{ env.target}}.pdf ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ setps.extract_base.outputs.branch }.pdf
       - name: Store compiled PDF artifact
         if: success()
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.target}}-${{ github.head_ref }}-vs-${{ github.base_ref }}.pdf
-          path: ${{ env.target}}-${{ github.head_ref }}-vs-${{ github.base_ref }}.pdf
+          name: ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ setps.extract_base.outputs.branch }.pdf
+          path: ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ setps.extract_base.outputs.branch }.pdf
           if-no-files-found: error
