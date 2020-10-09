@@ -6,6 +6,21 @@ jobs:
   build-diff-pdf:
     runs-on: ubuntu-latest
     steps:
+      - name: Extract base name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(base_ref=${{ github.base_ref }}; with_slashes=${base_ref#refs/heads/}; echo ${with_slashes//\//-})"
+        id: extract_base
+      - name: Extract head name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(head_ref=${{ github.head_ref }}; with_slashes=${head_ref#refs/heads/}; echo ${with_slashes//\//-})"
+        id: extract_head
+      - name: Create DIFF file name
+        id: diff
+        shell: bash
+        run: echo "##[set-output name=file;]$(echo ${{ env.target}}-${{ steps.extract_head.outputs.branch }}-vs-${{ steps.extract_base.outputs.branch }}.pdf)"
+      - name: Check DIFF file name
+        shell: bash
+        run: echo ${{ steps.diff.outputs.file }} >&2
       - name: Set up Git repository
         uses: actions/checkout@v2
         with:
@@ -22,11 +37,11 @@ jobs:
           root_file: ${{ env.target }}.pdf
       - name: Copy to SHA-suffixed file
 
-        run: cp ${{ env.target}}.pdf ${{ env.target}}-${{ github.head_ref }}-vs-${{ github.base_ref }}.pdf
+        run: cp ${{ env.target}}.pdf ${{ steps.diff.outputs.file }}
       - name: Store compiled PDF artifact
         if: success()
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.target}}-${{ github.head_ref }}-vs-${{ github.base_ref }}.pdf
-          path: ${{ env.target}}-${{ github.head_ref }}-vs-${{ github.base_ref }}.pdf
+          name: ${{ steps.diff.outputs.file }}
+          path: ${{ steps.diff.outputs.file }}
           if-no-files-found: error

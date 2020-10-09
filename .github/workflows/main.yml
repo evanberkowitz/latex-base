@@ -7,6 +7,10 @@ jobs:
   build-head-pdf:
     runs-on: ubuntu-latest
     steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(with_slashes=${GITHUB_REF#refs/heads/}; echo ${with_slashes//\//-})"
+        id: extract_branch
       - name: Set up Git repository
         uses: actions/checkout@v2
         with:
@@ -18,11 +22,11 @@ jobs:
           args: VERBOSE=1 TARGET=${{ env.target }}
           root_file: ${{ env.target }}.pdf
       - name: Copy to ref-suffixed file
-        run: cp ${{ env.target }}.pdf ${{ env.target }}-${{ github.sha }}.pdf
+        run: cp ${{ env.target }}.pdf ${{ env.target }}-${{ steps.extract_branch.outputs.branch }}.pdf
       - name: Store compiled PDF artifact
         if: success()
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.target }}-${{ github.sha }}.pdf
-          path: ${{ env.target }}-${{ github.sha }}.pdf
+          name: ${{ env.target }}-${{ steps.extract_branch.outputs.branch }}.pdf
+          path: ${{ env.target }}-${{ steps.extract_branch.outputs.branch }}.pdf
           if-no-files-found: error
