@@ -20,7 +20,7 @@ jobs:
         run: echo "##[set-output name=file;]$(echo ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ steps.extract_base.outputs.branch }.pdf)"
       - name: Check DIFF file name
         shell: bash
-        run: echo ${ steps.diff.outputs.file } >&2
+        run: echo ${{ steps.diff.outputs.file }} >&2
       - name: Set up Git repository
         uses: actions/checkout@v2
         with:
@@ -37,11 +37,11 @@ jobs:
           root_file: ${{ env.target }}.pdf
       - name: Copy to SHA-suffixed file
 
-        run: cp ${{ env.target}}.pdf ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ steps.extract_base.outputs.branch }.pdf
+        run: cp ${{ env.target}}.pdf ${{ steps.diff.outputs.file }}
       - name: Store compiled PDF artifact
         if: success()
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ steps.extract_base.outputs.branch }.pdf
-          path: ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ steps.extract_base.outputs.branch }.pdf
+          name: ${{ steps.diff.outputs.file }}
+          path: ${{ steps.diff.outputs.file }}
           if-no-files-found: error
