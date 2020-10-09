@@ -9,11 +9,9 @@ GitHub introduced [repository templates](https://github.blog/2019-06-06-generate
 
 You can also navigate to [the /generate endpoint of this repo](https://github.com/evanberkowitz/latex-base/generate) to achieve the same effect.
 
-# A base for other documents
+# Continuous Integration with GitHub Actions
 
-*You can still use this method, but consider using this repository as a template repository instead, as explained above.*
-
-Rather than forking this repository, it probably makes sense to use it as a base to import.  You can [import a repo on GitHub](https://github.com/new/import) and give it an independent history without keeping it tied to the original repo forever.
+GitHub allows you to trigger actions on particular changes to the repository.  I have used a [latex-action](https://github.com/dante-ev/latex-action) to attempt to compile each pushed update to a PDF.  In addition, on a pull-request, [`git-latexdiff`](https://gitlab.com/git-latexdiff/git-latexdiff) is used to compile a PDF that highlights the differences between the two branches to be reconciled.
 
 # Dependencies
 
