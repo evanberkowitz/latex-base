@@ -8,11 +8,11 @@ jobs:
     steps:
       - name: Extract base name
         shell: bash
-        run: echo "##[set-output name=branch;]$(with_slashes=${{ github.base_ref#refs/heads/}}; echo ${with_slashes//\//-})"
+        run: echo "##[set-output name=branch;]$(base_ref=${{ github.base_ref }}; with_slashes=${base_ref#refs/heads/}; echo ${with_slashes//\//-})"
         id: extract_base
       - name: Extract head name
         shell: bash
-        run: echo "##[set-output name=branch;]$(with_slashes=${{ github.head_ref#refs/heads/}}; echo ${with_slashes//\//-})"
+        run: echo "##[set-output name=branch;]$(head_ref=${{ github.head_ref }}; with_slashes=${head_ref#refs/heads/}; echo ${with_slashes//\//-})"
         id: extract_head
       - name: Set up Git repository
         uses: actions/checkout@v2
