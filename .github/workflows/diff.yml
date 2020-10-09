@@ -20,7 +20,7 @@ jobs:
         run: echo "##[set-output name=file;]$(echo ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ steps.extract_base.outputs.branch }.pdf)"
       - name: Check DIFF file name
         shell: bash
-        run: echo ${ steps.diff.file } >&2
+        run: echo ${ steps.diff.outputs.file } >&2
       - name: Set up Git repository
         uses: actions/checkout@v2
         with:
