@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Extract branch name
         shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        run: echo "##[set-output name=branch;]$(with_slashes=${GITHUB_REF#refs/heads/}; echo ${with_slashes//\//-})"
         id: extract_branch
       - name: Set up Git repository
         uses: actions/checkout@v2
