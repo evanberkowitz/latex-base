@@ -14,6 +14,13 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(head_ref=${{ github.head_ref }}; with_slashes=${head_ref#refs/heads/}; echo ${with_slashes//\//-})"
         id: extract_head
+      - name: Create DIFF file name
+        id: diff
+        shell: bash
+        run: echo "##[set-output name=file;]$(echo ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ steps.extract_base.outputs.branch }.pdf)"
+      - name: Check DIFF file name
+        shell: bash
+        run: echo ${ steps.diff.file } >&2
       - name: Set up Git repository
         uses: actions/checkout@v2
         with:
