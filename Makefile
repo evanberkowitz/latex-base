@@ -53,4 +53,4 @@ clean: tidy
 
 .PHONY: watch
 watch: $(TARGET).pdf
-	when-changed -s -1 -r . make
+	when-changed -s -1 -r . .git/index .git/HEAD -c make
