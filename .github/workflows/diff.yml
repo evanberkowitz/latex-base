@@ -30,11 +30,11 @@ jobs:
           root_file: ${{ env.target }}.pdf
       - name: Copy to SHA-suffixed file
 
-        run: cp ${{ env.target}}.pdf ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ setps.extract_base.outputs.branch }.pdf
+        run: cp ${{ env.target}}.pdf ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ steps.extract_base.outputs.branch }.pdf
       - name: Store compiled PDF artifact
         if: success()
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ setps.extract_base.outputs.branch }.pdf
-          path: ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ setps.extract_base.outputs.branch }.pdf
+          name: ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ steps.extract_base.outputs.branch }.pdf
+          path: ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ steps.extract_base.outputs.branch }.pdf
           if-no-files-found: error
