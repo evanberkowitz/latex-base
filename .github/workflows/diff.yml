@@ -17,7 +17,7 @@ jobs:
       - name: Create DIFF file name
         id: diff
         shell: bash
-        run: echo "##[set-output name=file;]$(echo ${{ env.target}}-${ steps.extract_head.outputs.branch }-vs-${ steps.extract_base.outputs.branch }.pdf)"
+        run: echo "##[set-output name=file;]$(echo ${{ env.target}}-${{ steps.extract_head.outputs.branch }}-vs-${{ steps.extract_base.outputs.branch }}.pdf)"
       - name: Check DIFF file name
         shell: bash
         run: echo ${{ steps.diff.outputs.file }} >&2
