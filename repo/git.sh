@@ -35,17 +35,17 @@ git branch -vv >&2
 echo OLD is ${OLD} >&2
 echo NEW is ${NEW} >&2
 files_changed=`git diff --name-only ${OLD} ${NEW} 2>/dev/null | wc -l | tr -d [:blank:]`
-old_time=`git show -s --format=%ad --date=iso ${OLD}`
 
-result="${files_changed} files in "'\texttt{'"${NEWPRINT}"'} different from commit \texttt{'"${OLDPRINT}"'}'" from ${old_time}"
-
-# Correct "1 files" pluralization madness.
-if [[ "${result:0:2}" == "1 " ]]; then
-    result=${result/1 files/1 file}
+if [[ "${files_changed}" == "1" ]]; then
+	files_changed="${files_changed} file"
+else
+	files_changed="${files_changed} files"
 fi
 
+result='\texttt{'"${NEWPRINT}"'} differs from commit \texttt{'"${OLDPRINT}"'}'" in ${files_changed}"
+
 # Turn red if there are dirty files.
-if [[ ! "${result:0:1}" == "0" ]]; then
+if [[ ! "${files_changed:0:1}" == "0" ]]; then
     result="{\color{Red}${result}}"
 else
     result="{\color{Green}${result}}"
