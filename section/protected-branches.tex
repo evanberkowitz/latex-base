@@ -1,0 +1,14 @@
+\section{Protected Branches}\label{sec:protected branches}
+
+A \emph{protected branch} is a branch hosted on GitHub which users are prevented from editing freely~\cite{protected-branches}.
+For example, you may want to guarantee that the revisions are always reviewed by another author before committing them.
+
+One way to use this feature is to have a common branch from which all changes should be branched---say, the \texttt{master} branch.
+To make an edit, a user branches off of \texttt{master} to create a \texttt{topic} branch.
+They edit on that branch, and when they are satisfied they make a \href{https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/about-pull-requests}{\texttt{pull request}}.
+Then, another collaborator can review those changes and approve them, or request changes.
+The author of the changes can continue to make edits by pushing the same branch; on each push the GitHub Actions are run.
+
+You can set up your repository so that \href{https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-required-status-checks}{passing status checks is required} or you can be more lax.
+The policies are yours to determine.
+When everybody is happy, the \texttt{topic} branch may be merged into the \texttt{master} branch.
