@@ -22,7 +22,7 @@ jobs:
         shell: bash
         run: echo ${{ steps.diff.outputs.file }} >&2
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Get BASE branch
@@ -30,7 +30,7 @@ jobs:
       - name: Get HEAD branch
         run:  git checkout ${{ github.head_ref }}
       - name: Compile LaTeX document
-        uses: dante-ev/latex-action@master
+        uses: dante-ev/latex-action@latest
         with:
           compiler:  make
           args: VERBOSE=1 DIFF=1 OLD=${{ github.base_ref }} NEW=${{ github.head_ref}} TARGET=${{ env.target }}
@@ -40,7 +40,7 @@ jobs:
         run: cp ${{ env.target}}.pdf ${{ steps.diff.outputs.file }}
       - name: Store compiled PDF artifact
         if: success()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.diff.outputs.file }}
           path: ${{ steps.diff.outputs.file }}
