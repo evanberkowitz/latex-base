@@ -2,30 +2,34 @@ name: Build LaTeX document
 on: [push]
 env:
   target: master
-  ref:    ${GITHUB_REF#refs/heads/}
+  ref: ${{ github.ref_name }}
 jobs:
   build-head-pdf:
     runs-on: ubuntu-latest
     steps:
       - name: Extract branch name
         shell: bash
-        run: echo "##[set-output name=branch;]$(with_slashes=${GITHUB_REF#refs/heads/}; echo ${with_slashes//\//-})"
+        run: |
+          with_slashes=${GITHUB_REF#refs/heads/}
+          echo "branch=${with_slashes//\//-}" >> $GITHUB_OUTPUT
         id: extract_branch
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Workspace is safe
+        run: git config --global --add safe.directory /github/workspace
       - name: Compile LaTeX document
-        uses: dante-ev/latex-action@master
+        uses: dante-ev/latex-action@latest
         with:
-          compiler:  make
+          compiler: make
           args: VERBOSE=1 TARGET=${{ env.target }}
           root_file: ${{ env.target }}.pdf
       - name: Copy to ref-suffixed file
         run: cp ${{ env.target }}.pdf ${{ env.target }}-${{ steps.extract_branch.outputs.branch }}.pdf
       - name: Store compiled PDF artifact
         if: success()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.target }}-${{ steps.extract_branch.outputs.branch }}.pdf
           path: ${{ env.target }}-${{ steps.extract_branch.outputs.branch }}.pdf
